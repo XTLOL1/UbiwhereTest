@@ -1,0 +1,3 @@
+[submodule "Traffic-Speed"]
+	path = Traffic-Speed
+	url = https://github.com/Ubiwhere/Traffic-Speed.git

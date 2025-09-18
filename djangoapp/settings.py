@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +68,14 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'djangoapp.wsgi.application'
+
+# Rest Framework Configs
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'djangoapp.ubiwheretest.permissions.IsAdminOrAnonReadOnly'
+    ]
+}
 
 
 # Database

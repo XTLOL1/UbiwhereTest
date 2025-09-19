@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'restapp.apps.RestappConfig'
 ]
 
 MIDDLEWARE = [
@@ -73,7 +74,7 @@ WSGI_APPLICATION = 'djangoapp.wsgi.application'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'djangoapp.ubiwheretest.permissions.IsAdminOrAnonReadOnly'
+        'restapp.permissions.IsAdminOrAnonReadOnly'
     ]
 }
 

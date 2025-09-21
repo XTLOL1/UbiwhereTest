@@ -69,7 +69,8 @@ class SegmentSpeedSerializer(serializers.HyperlinkedModelSerializer):
         return "Unknown" #failsafe
 
 class RoadSegmentWithSpeedsSerializer(serializers.HyperlinkedModelSerializer):
-    speedReadings = SegmentSpeedSerializer(many=True, read_only=True, source="segmentspeed_set") #same as fetch segspeeds where roadseg = x
+    speedReadings = SegmentSpeedSerializer(many=True, read_only=True, source="segmentspeed_set")
+    #same as fetch segspeeds where roadseg = x
 
     class Meta:
         model = RoadSegment

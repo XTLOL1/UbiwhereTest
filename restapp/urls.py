@@ -12,5 +12,6 @@ router.register(r'speedTiers', views.SpeedTierViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     re_path(r'findRoadSegment/(?P<startLong>[-+]?([0-9]+\.[0-9]+|[0-9]+))/(?P<startLat>[-+]?([0-9]+\.[0-9]+|[0-9]+))/(?P<endLong>[-+]?([0-9]+\.[0-9]+|[0-9]+))/(?P<endLat>[-+]?([0-9]+\.[0-9]+|[0-9]+))/', views.FindRoadSegment.as_view()),
-    path('roadSegmentsByLastSpeedReadingDesignation/<str:designation>', views.RoadSegmentsByLastSpeedReadingDesignation.as_view())
+    path('roadSegmentsByLastSpeedReadingDesignation/<str:designation>', views.RoadSegmentsByLastSpeedReadingDesignation.as_view()),
+    #path('speedTier', views.SpeedTierViewSet.as_view({'get': 'list'}))
 ]

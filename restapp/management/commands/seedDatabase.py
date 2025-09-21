@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 from restapp.models import RoadSegment, SegmentSpeed, SpeedTier
 from csv import reader
@@ -13,6 +14,8 @@ class Command(BaseCommand):
     #index 6 = registered Speed
 
     def handle(self, *args, **kwargs):
+        if not User.objects.filter(username="admin").exists():
+            User.objects.create_superuser("admin", "admin@example.com", "something123!")
         if SpeedTier.objects.all().count() == 0:
             lowerTier = SpeedTier(upperLimit=20, designation="elevada") # <= 20
             lowerTier.save()

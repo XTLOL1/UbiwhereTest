@@ -3,6 +3,7 @@ from rest_framework import permissions, viewsets, views, response
 
 from restapp.serializers import GroupSerializer, UserSerializer, RoadSegmentSerializer, SegmentSpeedSerializer, SpeedTierSerializer, RoadSegmentWithSpeedsSerializer
 import restapp.models as restModels
+from restapp.viewsets import EditOnlyViewSet
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -27,9 +28,56 @@ class SegmentSpeedViewSet(viewsets.ModelViewSet):
     queryset = restModels.SegmentSpeed.objects.all().order_by('id')
     serializer_class = SegmentSpeedSerializer
 
-class SpeedTierViewSet(viewsets.ModelViewSet):
+class SpeedTierViewSet(EditOnlyViewSet):
     queryset = restModels.SpeedTier.objects.all()
     serializer_class = SpeedTierSerializer
+
+    def update(self, request, pk=None):
+        if pk is None:
+            return response.Response(status=404)
+        if "designation" not in request.data:
+            return response.Response(status=400)
+        speedTier = None
+        try:
+            speedTier = restModels.SpeedTier.objects.get(pk=pk)
+        except: #object doesnt exist
+            return response.Response(status=404)
+        if "lowerLimit" not in request.data and "upperLimit" in request.data:
+            #lowerLimit infinite
+            speedTier.lowerLimit = None
+            speedTier.upperLimit = request.data["upperLimit"]
+            speedTier.designation = request.data["designation"]
+        elif "lowerLimit" in request.data and "upperLimit" not in request.data:
+            #upperLimit infinite
+            speedTier.lowerLimit = request.data["lowerLimit"]
+            speedTier.upperLimit = None
+            speedTier.designation = request.data["designation"]
+        elif "lowerLimit" in request.data and "upperLimit" in request.data:
+            speedTier.lowerLimit = request.data["lowerLimit"]
+            speedTier.upperLimit = request.data["upperLimit"]
+            speedTier.designation = request.data["designation"]
+        else:
+            #lowerLimit and upperLimit not present
+            return response.Response(status=400)
+        speedTier.save()
+        return response.Response(status=200)
+
+    def partial_update(self, request, pk=None):
+        if pk is None:
+            return response.Response(status=404)
+        speedTier = None
+        try:
+            speedTier = restModels.SpeedTier.objects.get(pk=pk)
+        except: #object doesnt exist
+            return response.Response(status=404)
+        if "designation" in request.data:
+            speedTier.designation = request.data["designation"]
+        if "upperLimit" in request.data:
+            speedTier.upperLimit = request.data["upperLimit"]
+        if "lowerLimit" in request.data:
+            speedTier.lowerLimit = request.data["lowerLimit"]
+        speedTier.save()
+        return response.Response(status=200)
 
 class FindRoadSegment(views.APIView):
     serializer_class = RoadSegmentWithSpeedsSerializer

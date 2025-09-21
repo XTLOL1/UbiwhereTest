@@ -44,15 +44,21 @@ class SpeedTierViewSet(EditOnlyViewSet):
             return response.Response(status=404)
         if "lowerLimit" not in request.data and "upperLimit" in request.data:
             #lowerLimit infinite
+            if request.data["upperLimit"] <= 0:
+                return response.Response(status=400)
             speedTier.lowerLimit = None
             speedTier.upperLimit = request.data["upperLimit"]
             speedTier.designation = request.data["designation"]
         elif "lowerLimit" in request.data and "upperLimit" not in request.data:
             #upperLimit infinite
+            if request.data["lowerLimit"] <= 0:
+                return response.Response(status=400)
             speedTier.lowerLimit = request.data["lowerLimit"]
             speedTier.upperLimit = None
             speedTier.designation = request.data["designation"]
         elif "lowerLimit" in request.data and "upperLimit" in request.data:
+            if request.data["lowerLimit"] <= 0 and request.data["upperLimit"] <= request.data["lowerLimit"]:
+                return response.Response(status=400)
             speedTier.lowerLimit = request.data["lowerLimit"]
             speedTier.upperLimit = request.data["upperLimit"]
             speedTier.designation = request.data["designation"]
@@ -72,10 +78,11 @@ class SpeedTierViewSet(EditOnlyViewSet):
             return response.Response(status=404)
         if "designation" in request.data:
             speedTier.designation = request.data["designation"]
-        if "upperLimit" in request.data:
+        if "upperLimit" in request.data and request.data["upperLimit"] > 0:
             speedTier.upperLimit = request.data["upperLimit"]
-        if "lowerLimit" in request.data:
-            speedTier.lowerLimit = request.data["lowerLimit"]
+        if "lowerLimit" in request.data and request.data["lowerLimit"] > 0:
+            if speedTier.upperLimit > request.data["lowerLimit"]:
+                speedTier.lowerLimit = request.data["lowerLimit"]
         speedTier.save()
         return response.Response(status=200)
 
@@ -87,16 +94,16 @@ class FindRoadSegment(views.APIView):
         startLat = self.kwargs["startLat"]
         endLong = self.kwargs["endLong"]
         endLat = self.kwargs["endLat"]
-        roadSegment = restModels.RoadSegment.objects.filter(
-            longStartId=startLong,
-            latStartId=startLat,
-            longEndId=endLong,
-            latEndId=endLat
-        )[0]
-        if roadSegment is not None:
+        try:
+            roadSegment = restModels.RoadSegment.objects.get(
+                longStart=startLong,
+                latStart=startLat,
+                longEnd=endLong,
+                latEnd=endLat
+            )
             serializer = RoadSegmentWithSpeedsSerializer(roadSegment, context={'request': request})
             return response.Response(serializer.data)
-        else:
+        except:
             return response.Response(status=404)
         
 class RoadSegmentsByLastSpeedReadingDesignation(views.APIView):

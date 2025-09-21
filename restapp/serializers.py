@@ -27,10 +27,10 @@ class RoadSegmentSerializer(serializers.HyperlinkedModelSerializer):
         model = RoadSegment
         fields = [
             'url', 
-            'longStartId', 
-            'latStartId', 
-            'longEndId', 
-            'latEndId', 
+            'longStart', 
+            'latStart', 
+            'longEnd', 
+            'latEnd', 
             'length', 
             'numSpeedReadings'
         ]

@@ -42,6 +42,6 @@ After that, everything should be setup, you can now run the API using the follow
  - Find a way to populate database from csv file (Done, python manager.py seedDatabase)
  - Setup Swagger (Done)
  - Restrict the way the Speed Tiers are created (Done, made it so that you can't create or delete, can only update or patch)
- - Add unit tests to test the API and user perms
+ - Add unit tests to test the API and user perms (Done, wrote some tests to validate perms and algorithms in SpeedTiers endpoints)
  - Add a feature that filters the RoadSegments by designation of the last SegmentSpeed reading (Done)
  - Make a guide to setup and run the app (You're reading it :) )

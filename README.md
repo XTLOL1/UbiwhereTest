@@ -1,6 +1,9 @@
 # UbiwhereTest
 Ubiwhere entry test attempt
 
+###What i did
+I did part 1 and part 2 
+
 ## How to Run
 
 If you're using Linux, you can just run the ```./setupLinux.sh``` script and everything will be setup automatically.

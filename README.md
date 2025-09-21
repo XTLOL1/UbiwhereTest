@@ -13,14 +13,11 @@ To install the dependencies, run:
 ```
 pip install -r requirements.txt
 ```
-Then to seed the database, run the following shell script:
-```
-./seedDatabase.sh or ./seedDatabase.bat
-```
+Then to seed the database, run ```./seedDatabase.sh``` for Linux or ```./seedDatabase.bat``` for Windows.
 
-After that, everything should be setup, you can now run the API using the following shell script or ```python manage.py runserver```:
+After that, everything should be setup, you can now run the API using ```./run.sh``` for Linux or ```./run.bat``` for Windows. If they don't work, run the following CMD line:
 ```
-./run.sh or ./run.bat
+python manage.py runserver
 ```
 
 

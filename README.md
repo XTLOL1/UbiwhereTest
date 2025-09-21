@@ -4,8 +4,8 @@ Ubiwhere entry test attempt
 ## How to Run
 
 If you're using Linux, you can just run the ```setupLinux.sh``` script and everything will be setup automatically.
-### DO NOT RUN THE SCRIPT WHEN NOT ON THE REPOSITORIES BASE FOLDER, IT DOES NOT USE ABSOLUTE PATHS
-If you're using Windows, **untested script**
+If you're using Windows, **untested script**, run the ```setupWindows.bat``` script and everything should be setup automatically.
+### DO NOT RUN THE SCRIPTS WHEN NOT ON THE REPOSITORIES BASE FOLDER, THEY DO NOT USE ABSOLUTE PATHS
 
 If for some reason the scripts above do not work, following these steps:
 A virtual environment was used to run this program, I recommend you do the same.
@@ -13,14 +13,14 @@ To install the dependencies, run:
 ```
 pip install -r requirements.txt
 ```
-Then to seed the database, run the following shell script or ```python manage.py seedDatabase```:
+Then to seed the database, run the following shell script:
 ```
-./seedDatabase.sh
+./seedDatabase.sh or ./seedDatabase.bat
 ```
 
 After that, everything should be setup, you can now run the API using the following shell script or ```python manage.py runserver```:
 ```
-./run.sh
+./run.sh or ./run.bat
 ```
 
 

@@ -3,8 +3,8 @@ Ubiwhere entry test attempt
 
 ## How to Run
 
-If you're using Linux, you can just run the ```setupLinux.sh``` script and everything will be setup automatically.
-If you're using Windows, **untested script**, run the ```setupWindows.bat``` script and everything should be setup automatically.
+If you're using Linux, you can just run the ```./setupLinux.sh``` script and everything will be setup automatically.
+If you're using Windows, **untested script**, run the ```./setupWindows.bat``` script and everything should be setup automatically.
 ### DO NOT RUN THE SCRIPTS WHEN NOT ON THE REPOSITORIES BASE FOLDER, THEY DO NOT USE ABSOLUTE PATHS
 
 If for some reason the scripts above do not work, following these steps:
